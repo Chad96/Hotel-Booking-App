@@ -4,7 +4,8 @@ body {
   padding: 0;
 }
 
-.header {
+/* Remove or rename the .header class to avoid conflict with the navbar */
+.custom-header {
   background-color: #333;
   color: white;
   padding: 1em;
@@ -12,6 +13,7 @@ body {
   justify-content: space-between;
 }
 
+/* Footer styles are fine, no conflict */
 .footer {
   background-color: #333;
   color: white;
@@ -19,6 +21,7 @@ body {
   text-align: center;
 }
 
+/* Accommodation card styling is fine, but ensure it's not conflicting with any card styles from Bootstrap */
 .accommodation-card {
   border: 1px solid #ddd;
   padding: 1em;
@@ -31,13 +34,15 @@ body {
   height: auto;
 }
 
-.container {
+/* Rename container class to avoid conflict with Bootstrap’s container class */
+.custom-container {
   max-width: 1200px;
   margin: auto;
   padding: 1em;
 }
 
-button {
+/* Rename button class to avoid conflicting with Bootstrap’s button styling */
+.custom-button {
   background-color: #28a745;
   color: white;
   padding: 0.5em 1em;
