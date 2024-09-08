@@ -2,7 +2,7 @@ import React from "react";
 import AccommodationCard from "../components/AccommodationCard";
 import accommodations from "../data/accommodations";
 import "bootstrap/dist/css/bootstrap.min.css";
-import hotelImage from "../assets/hotel.jpg";
+import hotelImage from "../assets/hot.jpg";
 
 // Assuming some color and font details from Figma
 const primaryColor = "#FF5733"; // Example color
@@ -40,7 +40,7 @@ const Home = () => {
       </nav>
 
       {/* Hero Section */}
-      <div className="hero-section" style={{ paddingTop: "60px" }}> {/* Padding to prevent content overlap */}
+      <div className="hero-section" style={{ paddingTop: "60px" }}>
         <div
           className="hero-image"
           style={{
@@ -49,6 +49,7 @@ const Home = () => {
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "relative",
+            marginTop: "-2%",
           }}
         >
           <div
@@ -59,7 +60,7 @@ const Home = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust opacity as needed
+              backgroundColor: "rgba(0, 0, 0, 0.5)", 
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
