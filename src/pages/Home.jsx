@@ -2,7 +2,8 @@ import React from "react";
 import AccommodationCard from "../components/AccommodationCard";
 import accommodations from "../data/accommodations";
 import "bootstrap/dist/css/bootstrap.min.css";
-import hotelImage from "../assets/hot.jpg";
+import hotelImage from "../assets/hotelb.jpg"; // Importing the new hotel image
+import logo from "../assets/logo.png"; // Importing the logo
 
 // Assuming some color and font details from Figma
 const primaryColor = "#FF5733"; // Example color
@@ -12,29 +13,49 @@ const Home = () => {
   return (
     <>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark" style={{ 
-        backgroundColor: "rgba(255, 255, 255, 0.1)", // Slightly transparent white
-        backdropFilter: "blur(10px)", // Glassy effect
-        position: "fixed",
-        width: "100%",
-        top: 0,
-        left: 0,
-        zIndex: 1000,
-      }}>
+      <nav
+        className="navbar navbar-expand-lg navbar-dark"
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.1)", // Slightly transparent white
+          backdropFilter: "blur(10px)", // Glassy effect
+          position: "fixed",
+          width: "100%",
+          top: 0,
+          left: 0,
+          zIndex: 1000,
+        }}
+      >
         <div className="container" style={{ justifyContent: "space-between" }}>
+          {/* Navbar brand with logo */}
           <a className="navbar-brand" href="/">
             <img
-              src="/assets/logo.png"
+              src={logo} // Use imported logo
               alt="Hotel Logo"
               style={{ height: "50px" }}
             />
           </a>
-          <div
-            className="d-flex align-items-center"
-          >
-            <a className="nav-link" href="/" style={{ color: "#fff", margin: "0 10px" }}>Home</a>
-            <a className="nav-link" href="/login" style={{ color: "#fff", margin: "0 10px" }}>Login</a>
-            <a className="nav-link" href="/register" style={{ color: "#fff", margin: "0 10px" }}>Register</a>
+          <div className="d-flex align-items-center">
+            <a
+              className="nav-link"
+              href="/"
+              style={{ color: "#fff", margin: "0 10px" }}
+            >
+              Home
+            </a>
+            <a
+              className="nav-link"
+              href="/login"
+              style={{ color: "#fff", margin: "0 10px" }}
+            >
+              Login
+            </a>
+            <a
+              className="nav-link"
+              href="/register"
+              style={{ color: "#fff", margin: "0 10px" }}
+            >
+              Register
+            </a>
           </div>
         </div>
       </nav>
@@ -44,7 +65,7 @@ const Home = () => {
         <div
           className="hero-image"
           style={{
-            backgroundImage: `url(${hotelImage})`,
+            backgroundImage: `url(${hotelImage})`, // Use the new image
             height: "600px",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -60,7 +81,7 @@ const Home = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)", 
+              backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark overlay
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -68,12 +89,16 @@ const Home = () => {
           >
             <div className="text-center text-white" style={{ fontFamily }}>
               <h1 style={{ fontSize: "48px", fontWeight: "bold" }}>
-                Chuini Zanzibar Beach Lodge
+                Welcome to Chad's Beach Hotel
               </h1>
               <p style={{ fontSize: "20px" }}>
-                Experience Paradise on the Shores of Zanzibar
+                Experience Paradise on the Shores of the Beach
               </p>
-              <a href="#accommodations" className="btn btn-primary mt-3" style={{ backgroundColor: primaryColor, borderColor: primaryColor }}>
+              <a
+                href="#accommodations"
+                className="btn btn-primary mt-3"
+                style={{ backgroundColor: primaryColor, borderColor: primaryColor }}
+              >
                 Explore Accommodations
               </a>
             </div>

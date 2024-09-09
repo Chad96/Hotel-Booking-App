@@ -3,19 +3,26 @@ import { Link } from "react-router-dom";
 import { Carousel } from "react-bootstrap"; // Using Bootstrap's Carousel component
 import "bootstrap/dist/css/bootstrap.min.css"; // Make sure to import Bootstrap's CSS
 
-// Accommodations data
+// Importing images
+import hotels from "../assets/hotels.jpg";
+import hot from "../assets/hot.jpg";
+import hotel from "../assets/hotel.jpg";
+import garden2 from "../assets/hot.jpg";
+import garden3 from "../assets/hotel.jpg";
+
+// Accommodations data with imported images
 const accommodations = [
   {
     id: 1,
     name: "Ocean View Room",
     shortDescription: "A room with a view of the ocean.",
-    images: ["/assets/hotels.jpg", "/assets/hot.jpg", "/assets/hotel.jpg"],
+    images: [hotels, hot, hotel], // Use imported images
   },
   {
     id: 2,
     name: "Garden View Room",
     shortDescription: "A room with a view of the garden.",
-    images: ["/assets/garden1.jpg", "/assets/garden2.jpg", "/assets/garden3.jpg"],
+    images: [hot, garden2, garden3], // Use imported images
   },
 ];
 
