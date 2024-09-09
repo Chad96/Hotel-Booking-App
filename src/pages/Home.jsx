@@ -4,6 +4,7 @@ import accommodations from "../data/accommodations";
 import "bootstrap/dist/css/bootstrap.min.css";
 import hotelImage from "../assets/hotelb.jpg"; // Importing the new hotel image
 import logo from "../assets/logo.png"; // Importing the logo
+import largeImage from "../assets/largeImage.jpg"; // Add your large image here
 
 // Assuming some color and font details from Figma
 const primaryColor = "#FF5733"; // Example color
@@ -101,6 +102,39 @@ const Home = () => {
               >
                 Explore Accommodations
               </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* New Section with Image on the Left and Text on the Right */}
+      <div className="container my-5">
+        <div className="row">
+          {/* Image on the Left */}
+          <div className="col-lg-6">
+            <img
+              src={largeImage} // Use the new large image
+              alt="Large Display"
+              className="img-fluid" // Bootstrap class for responsive images
+              style={{ borderRadius: "4px" }} // Add some styling if needed
+            />
+          </div>
+
+          {/* Text on the Right */}
+          <div className="col-lg-6 d-flex align-items-center">
+            <div style={{ fontFamily }}>
+              <h2 style={{ color: primaryColor }}>Discover Our Exclusive Packages</h2>
+              <p style={{ fontSize: "18px", textAlign: "justify" }}>
+                At Chad's Beach Hotel, we offer an array of exclusive packages designed 
+                to give you the ultimate relaxation and luxury experience. Whether you 
+                are looking for a romantic getaway, family vacation, or a corporate retreat, 
+                we have something for everyone. Enjoy breathtaking views, world-class 
+                amenities, and unmatched hospitality during your stay.
+              </p>
+              <p style={{ fontSize: "18px", textAlign: "justify" }}>
+                Book now and indulge in the serenity and beauty of the beachside, 
+                where every moment feels like paradise.
+              </p>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-body {
+ body {
   font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@ body {
   color: white;
   padding: 1em;
   text-align: center;
-}
+} */
 
 /* Accommodation card styling is fine, but ensure it's not conflicting with any card styles from Bootstrap */
 .accommodation-card {
@@ -27,6 +27,7 @@ body {
   padding: 1em;
   margin: 1em;
   text-align: center;
+  
 }
 
 .accommodation-card img {
@@ -48,4 +49,24 @@ body {
   padding: 0.5em 1em;
   border: none;
   cursor: pointer;
+} */
+.card-size {
+  padding: 20px; /* Add some padding */
+  max-width: 600px; /* Increase card width */
+  width: 100%; /* Set width to 100% to ensure the card takes up available space */
+  margin: 0 auto; /* Center the card */
+}
+
+.accommodation-card img {
+  height: 400px; /* Adjust the image height */
+  width: 100%; /* Ensure the image takes full width of the card */
+  object-fit: cover; /* Ensure the image fits nicely inside the container */
+}
+
+.accommodation-card h3 {
+  font-size: 24px; /* Adjust the title size */
+}
+
+.accommodation-card p {
+  font-size: 16px; /* Adjust the description font size */
 }

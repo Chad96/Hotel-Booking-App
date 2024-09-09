@@ -37,7 +37,9 @@ const AccommodationCard = ({ accommodation }) => {
   };
 
   return (
-    <div className="accommodation-card">
+    <div className="accommodation-card card-size">
+      {" "}
+      {/* Apply custom class */}
       <Carousel
         activeIndex={currentIndex}
         onSelect={handleSelect}
@@ -53,14 +55,22 @@ const AccommodationCard = ({ accommodation }) => {
               className="d-block w-100"
               src={image}
               alt={`View ${index + 1} of ${accommodation.name}`}
-              style={{ borderRadius: "10px", height: "250px", objectFit: "cover" }}
+              style={{
+                borderRadius: "10px",
+                height: "300px",
+                width: "100%",
+                objectFit: "cover",
+              }} // Increase height
             />
           </Carousel.Item>
         ))}
       </Carousel>
       <h3>{accommodation.name}</h3>
       <p>{accommodation.shortDescription}</p>
-      <Link to={`/accommodation/${accommodation.id}`} className="btn btn-primary">
+      <Link
+        to={`/accommodation/${accommodation.id}`}
+        className="btn btn-primary"
+      >
         View More
       </Link>
     </div>
@@ -74,6 +84,8 @@ const AccommodationList = () => {
       <div className="row">
         {accommodations.map((accommodation) => (
           <div key={accommodation.id} className="col-md-6 mb-4">
+            {" "}
+            {/* Adjust column width */}
             <AccommodationCard accommodation={accommodation} />
           </div>
         ))}
