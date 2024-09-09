@@ -31,6 +31,20 @@ const accommodations = [
     images: [hot, garden2, garden3],
     price: "$120 per night",
   },
+  // {
+  //   id: 3,
+  //   name: "City View Room",
+  //   shortDescription: "A room with a view of the city.",
+  //   images: [hotels, hot, garden2],
+  //   price: "$180 per night",
+  // },
+  {
+    id: 4,
+    name: "Mountain View Room",
+    shortDescription: "A room with a view of the mountains.",
+    images: [hotel, garden2, garden3],
+    price: "$200 per night",
+  },
 ];
 
 // AccommodationCard Component
@@ -60,7 +74,7 @@ const AccommodationCard = ({ accommodation }) => {
               alt={`View ${index + 1} of ${accommodation.name}`}
               style={{
                 borderRadius: "10px",
-                height: "400px", // Adjust image height
+                height: "300px", // Adjust image height
                 objectFit: "cover", // Ensure images fit properly
                 width: "100%",
               }}
@@ -160,20 +174,21 @@ const Home = () => {
             }}
           >
             <div className="text-center text-white" style={{ fontFamily }}>
-              <h1 style={{ fontSize: "48px", fontWeight: "bold" }}>
-                Welcome to Le paradis Beach Hotel
-              </h1>
-              <p style={{ fontSize: "20px" }}>
-                Experience Paradise on the Shores of the Beach
-              </p>
-              <a
-                href="#accommodations"
-                className="btn btn-primary mt-3"
-                style={{ backgroundColor: primaryColor, borderColor: primaryColor }}
-              >
-                Explore Accommodations
-              </a>
-            </div>
+  <h1 style={{ fontSize: "48px", fontWeight: "bold" }}>
+    Welcome to <span style={{ color: "#FFD700" }}>Le paradis</span> Beach Hotel
+  </h1>
+  <p style={{ fontSize: "20px" }}>
+    Experience Paradise on the Shores of the Beach
+  </p>
+  <a
+    href="#accommodations"
+    className="btn btn-primary mt-3"
+    style={{ backgroundColor: primaryColor, borderColor: primaryColor }}
+  >
+    Explore Accommodations
+  </a>
+</div>
+
           </div>
         </div>
       </div>
@@ -215,7 +230,7 @@ const Home = () => {
       <div className="home my-5" id="accommodations">
         <div className="container">
           <h2 className="text-center mb-5" style={{ fontFamily }}>
-           A Glimpse View of  Our Accommodations
+          A Glimpse of Our Accommodations
           </h2>
           <div className="row">
             {accommodations.map((accommodation) => (
