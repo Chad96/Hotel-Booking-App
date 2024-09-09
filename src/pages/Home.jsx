@@ -230,16 +230,27 @@ const Home = () => {
       <div className="home my-5" id="accommodations">
         <div className="container">
           <h2 className="text-center mb-5" style={{ fontFamily }}>
-          A Glimpse of Our Accommodations
+          A glimpse of our Accommodations
           </h2>
           <div className="row">
             {accommodations.map((accommodation) => (
               <div key={accommodation.id} className="col-lg-4 col-md-6 mb-4">
                 <AccommodationCard accommodation={accommodation} />
               </div>
+              
             ))}
           </div>
         </div>
+      </div>
+      {/* Book Now Button */}
+      <div className="book-now-container">
+        <a
+          href="#book"
+          className="btn btn-primary"
+          style={{ backgroundColor: primaryColor, borderColor: primaryColor,marginLeft: "45%" }}
+        >
+          Book Now
+        </a>
       </div>
     </>
   );
