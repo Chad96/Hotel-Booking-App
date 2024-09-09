@@ -1,14 +1,85 @@
-import React from "react";
-import AccommodationCard from "../components/AccommodationCard";
-import accommodations from "../data/accommodations";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import hotelImage from "../assets/hotelb.jpg"; // Importing the new hotel image
 import logo from "../assets/logo.png"; // Importing the logo
 import largeImage from "../assets/largeImage.jpg"; // Add your large image here
+import hotels from "../assets/hotels.jpg";
+import hot from "../assets/hot.jpg";
+import hotel from "../assets/hotel.jpg";
+import garden2 from "../assets/hot.jpg";
+import garden3 from "../assets/hotel.jpg";
 
 // Assuming some color and font details from Figma
 const primaryColor = "#FF5733"; // Example color
 const fontFamily = "'Roboto', sans-serif"; // Example font
+
+// Accommodations data with imported images
+const accommodations = [
+  {
+    id: 1,
+    name: "Ocean View Room",
+    shortDescription: "A room with a view of the ocean.",
+    images: [hotels, hot, hotel],
+    price: "$150 per night",
+  },
+  {
+    id: 2,
+    name: "Garden View Room",
+    shortDescription: "A room with a view of the garden.",
+    images: [hot, garden2, garden3],
+    price: "$120 per night",
+  },
+];
+
+// AccommodationCard Component
+const AccommodationCard = ({ accommodation }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleSelect = (selectedIndex) => {
+    setCurrentIndex(selectedIndex);
+  };
+
+  return (
+    <div className="accommodation-card card-size">
+      <Carousel
+        activeIndex={currentIndex}
+        onSelect={handleSelect}
+        interval={null}
+        indicators={false}
+        nextLabel=""
+        prevLabel=""
+        className="mb-3 carousel-container"
+      >
+        {accommodation.images.map((image, index) => (
+          <Carousel.Item key={index}>
+            <img
+              className="d-block w-100"
+              src={image}
+              alt={`View ${index + 1} of ${accommodation.name}`}
+              style={{
+                borderRadius: "10px",
+                height: "400px", // Adjust image height
+                objectFit: "cover", // Ensure images fit properly
+                width: "100%",
+              }}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+      <h3>{accommodation.name}</h3>
+      <p>{accommodation.shortDescription}</p>
+      <Link
+        to={`/accommodation/${accommodation.id}`}
+        className="btn btn-primary"
+        style={{ backgroundColor: primaryColor, borderColor: primaryColor }}
+      >
+        View More
+      </Link>
+    </div>
+  );
+};
 
 const Home = () => {
   return (
@@ -90,7 +161,7 @@ const Home = () => {
           >
             <div className="text-center text-white" style={{ fontFamily }}>
               <h1 style={{ fontSize: "48px", fontWeight: "bold" }}>
-                Welcome to Chad's Beach Hotel
+                Welcome to Le paradis Beach Hotel
               </h1>
               <p style={{ fontSize: "20px" }}>
                 Experience Paradise on the Shores of the Beach
@@ -116,7 +187,7 @@ const Home = () => {
               src={largeImage} // Use the new large image
               alt="Large Display"
               className="img-fluid" // Bootstrap class for responsive images
-              style={{ borderRadius: "4px" }} // Add some styling if needed
+              style={{ borderRadius: "0px", marginLeft: "-15%" }} // Add some styling if needed
             />
           </div>
 
@@ -144,7 +215,7 @@ const Home = () => {
       <div className="home my-5" id="accommodations">
         <div className="container">
           <h2 className="text-center mb-5" style={{ fontFamily }}>
-            Our Accommodations
+           A Glimpse View of  Our Accommodations
           </h2>
           <div className="row">
             {accommodations.map((accommodation) => (

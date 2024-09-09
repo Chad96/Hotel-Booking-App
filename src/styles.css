@@ -1,10 +1,10 @@
- body {
+body {
   font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* Remove or rename the .header class to avoid conflict with the navbar */
+/* Custom header to avoid conflict with Bootstrap */
 .custom-header {
   background-color: #333;
   color: white;
@@ -13,60 +13,90 @@
   justify-content: space-between;
 }
 
-/* Footer styles are fine, no conflict */
+/* Footer styles */
 .footer {
   background-color: #333;
   color: white;
   padding: 1em;
   text-align: center;
-} */
-
-/* Accommodation card styling is fine, but ensure it's not conflicting with any card styles from Bootstrap */
-.accommodation-card {
-  border: 1px solid #ddd;
-  padding: 1em;
-  margin: 1em;
-  text-align: center;
-  
 }
 
-.accommodation-card img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Rename container class to avoid conflict with Bootstrap’s container class */
+/* Custom container to avoid conflict with Bootstrap's .container */
 .custom-container {
   max-width: 1200px;
   margin: auto;
   padding: 1em;
 }
 
-/* Rename button class to avoid conflicting with Bootstrap’s button styling */
+/* Custom button to avoid conflict with Bootstrap */
 .custom-button {
   background-color: #28a745;
   color: white;
   padding: 0.5em 1em;
   border: none;
   cursor: pointer;
-} */
+}
+
+/* Accommodation card styles */
+.accommodation-card {
+  border: 1px solid #ddd;
+  padding: 20px; /* Increased padding for better spacing */
+  max-width: 100%; /* Max width for card */
+  width: 100%; /* Full width for responsiveness */
+  margin: 20px auto; /* Center the card and add spacing */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow for better aesthetics */
+  transition: transform 0.3s ease; /* Smooth transition for scaling effect */
+}
+
+.accommodation-card:hover {
+  transform: scale(1.05); /* Slight scaling on hover */
+}
+
+/* Carousel images inside the card */
+.accommodation-card img {
+  height: 400px; /* Ensure image height remains consistent */
+  width: 100%;
+  object-fit: cover; /* Keep image proportions intact */
+  border-radius: 10px; /* Rounded corners for a modern look */
+}
+
+/* Card title */
+.accommodation-card h3 {
+  font-size: 24px; /* Adjust title size */
+  margin-top: 15px; /* Add spacing between image and title */
+}
+
+/* Card description */
+.accommodation-card p {
+  font-size: 16px; /* Adjust description font size */
+  color: #555; /* Slightly muted text color */
+}
+
+/* Accommodation list card wrapper */
 .card-size {
-  padding: 20px; /* Add some padding */
-  max-width: 600px; /* Increase card width */
-  width: 100%; /* Set width to 100% to ensure the card takes up available space */
+  padding: 20px;
+  max-width: 600px;
+  width: 100%; /* Set width to 100% for responsiveness */
   margin: 0 auto; /* Center the card */
 }
 
-.accommodation-card img {
-  height: 400px; /* Adjust the image height */
-  width: 100%; /* Ensure the image takes full width of the card */
-  object-fit: cover; /* Ensure the image fits nicely inside the container */
-}
+/* Adjusting responsiveness */
+@media (max-width: 768px) {
+  .accommodation-card {
+    max-width: 100%; /* Ensure card takes full width on smaller screens */
+    padding: 15px;
+  }
 
-.accommodation-card h3 {
-  font-size: 24px; /* Adjust the title size */
-}
+  .accommodation-card img {
+    height: 300px; /* Reduce image height on smaller screens */
+  }
 
-.accommodation-card p {
-  font-size: 16px; /* Adjust the description font size */
+  .accommodation-card h3 {
+    font-size: 20px; /* Adjust title size */
+  }
+
+  .accommodation-card p {
+    font-size: 14px; /* Adjust description font size */
+  }
 }
