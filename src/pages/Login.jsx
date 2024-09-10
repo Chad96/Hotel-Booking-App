@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // For navigation after login
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // Hook for programmatic navigation
+
   const formStyle = {
     backgroundColor: "#ffffff",
     borderRadius: "10px",
@@ -38,19 +45,42 @@ const Login = () => {
     transition: "background-color 0.3s",
   };
 
-  const buttonHoverStyle = {
-    backgroundColor: "#0056b3",
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const auth = getAuth();
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Login successful!");
+      // Redirect to home page after login
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
     <div className="login-page" style={containerStyle}>
       <div style={formStyle}>
         <h2>Login</h2>
-        <form>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <form onSubmit={handleSubmit}>
           <label>Email</label>
-          <input type="email" required style={inputStyle} />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={inputStyle}
+          />
           <label>Password</label>
-          <input type="password" required style={inputStyle} />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={inputStyle}
+          />
           <button
             type="submit"
             style={buttonStyle}

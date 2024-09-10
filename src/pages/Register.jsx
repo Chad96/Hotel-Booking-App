@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // For navigation after registration
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); // Hook for programmatic navigation
+
   const formStyle = {
     backgroundColor: "#ffffff",
     borderRadius: "10px",
@@ -38,17 +46,55 @@ const Register = () => {
     transition: "background-color 0.3s",
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const auth = getAuth();
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match!");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log("Registration successful!");
+      // Redirect to login page after registration
+      navigate("/login");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <div className="register-page" style={containerStyle}>
       <div style={formStyle}>
         <h2>Register</h2>
-        <form>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <form onSubmit={handleSubmit}>
           <label>Email</label>
-          <input type="email" required style={inputStyle} />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={inputStyle}
+          />
           <label>Password</label>
-          <input type="password" required style={inputStyle} />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={inputStyle}
+          />
           <label>Confirm Password</label>
-          <input type="password" required style={inputStyle} />
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            style={inputStyle}
+          />
           <button
             type="submit"
             style={buttonStyle}
