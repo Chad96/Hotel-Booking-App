@@ -211,7 +211,7 @@ const Home = () => {
             <div style={{ fontFamily }}>
               <h2 style={{ color: primaryColor }}>Discover Our Exclusive Packages</h2>
               <p style={{ fontSize: "18px", textAlign: "justify" }}>
-                At Chad's Beach Hotel, we offer an array of exclusive packages designed 
+                At Le paradis Beach Hotel, we offer an array of exclusive packages designed 
                 to give you the ultimate relaxation and luxury experience. Whether you 
                 are looking for a romantic getaway, family vacation, or a corporate retreat, 
                 we have something for everyone. Enjoy breathtaking views, world-class 
