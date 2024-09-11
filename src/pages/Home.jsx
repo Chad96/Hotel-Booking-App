@@ -247,7 +247,7 @@ const Home = () => {
         <a
           href="#book"
           className="btn btn-primary"
-          style={{ backgroundColor: primaryColor, borderColor: primaryColor,marginLeft: "45%" }}
+          style={{ backgroundColor: "green", borderColor: "green",marginLeft: "45%", marginTop: "35px" }}
         >
           Book Now
         </a>
