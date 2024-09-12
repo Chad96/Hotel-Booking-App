@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import hotelImage from "../assets/hotelb.jpg"; // Importing the new hotel image
@@ -31,13 +31,6 @@ const accommodations = [
     images: [hot, garden2, garden3],
     price: "$120 per night",
   },
-  // {
-  //   id: 3,
-  //   name: "City View Room",
-  //   shortDescription: "A room with a view of the city.",
-  //   images: [hotels, hot, garden2],
-  //   price: "$180 per night",
-  // },
   {
     id: 4,
     name: "Mountain View Room",
@@ -96,6 +89,12 @@ const AccommodationCard = ({ accommodation }) => {
 };
 
 const Home = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleBookNow = () => {
+    navigate("/booking"); // Navigate to the booking page
+  };
+
   return (
     <>
       {/* Navbar */}
@@ -174,21 +173,20 @@ const Home = () => {
             }}
           >
             <div className="text-center text-white" style={{ fontFamily }}>
-  <h1 style={{ fontSize: "48px", fontWeight: "bold" }}>
-    Welcome to <span style={{ color: "#FFD700" }}>Le paradis</span> Beach Hotel
-  </h1>
-  <p style={{ fontSize: "20px" }}>
-    Experience Paradise on the Shores of the Beach
-  </p>
-  <a
-    href="#accommodations"
-    className="btn btn-primary mt-3"
-    style={{ backgroundColor: primaryColor, borderColor: primaryColor }}
-  >
-    Explore Accommodations
-  </a>
-</div>
-
+              <h1 style={{ fontSize: "48px", fontWeight: "bold" }}>
+                Welcome to <span style={{ color: "#FFD700" }}>Le paradis</span> Beach Hotel
+              </h1>
+              <p style={{ fontSize: "20px" }}>
+                Experience Paradise on the Shores of the Beach
+              </p>
+              <a
+                href="#accommodations"
+                className="btn btn-primary mt-3"
+                style={{ backgroundColor: primaryColor, borderColor: primaryColor }}
+              >
+                Explore Accommodations
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -211,14 +209,14 @@ const Home = () => {
             <div style={{ fontFamily }}>
               <h2 style={{ color: primaryColor }}>Discover Our Exclusive Packages</h2>
               <p style={{ fontSize: "18px", textAlign: "justify" }}>
-                At Le paradis Beach Hotel, we offer an array of exclusive packages designed 
-                to give you the ultimate relaxation and luxury experience. Whether you 
-                are looking for a romantic getaway, family vacation, or a corporate retreat, 
-                we have something for everyone. Enjoy breathtaking views, world-class 
+                At Le paradis Beach Hotel, we offer an array of exclusive packages designed
+                to give you the ultimate relaxation and luxury experience. Whether you
+                are looking for a romantic getaway, family vacation, or a corporate retreat,
+                we have something for everyone. Enjoy breathtaking views, world-class
                 amenities, and unmatched hospitality during your stay.
               </p>
               <p style={{ fontSize: "18px", textAlign: "justify" }}>
-                Book now and indulge in the serenity and beauty of the beachside, 
+                Book now and indulge in the serenity and beauty of the beachside,
                 where every moment feels like paradise.
               </p>
             </div>
@@ -230,27 +228,27 @@ const Home = () => {
       <div className="home my-5" id="accommodations">
         <div className="container">
           <h2 className="text-center mb-5" style={{ fontFamily }}>
-          A glimpse of our Accommodations
+            A glimpse of our Accommodations
           </h2>
           <div className="row">
             {accommodations.map((accommodation) => (
               <div key={accommodation.id} className="col-lg-4 col-md-6 mb-4">
                 <AccommodationCard accommodation={accommodation} />
               </div>
-              
             ))}
           </div>
         </div>
       </div>
+      
       {/* Book Now Button */}
       <div className="book-now-container">
-        <a
-          href="#book"
+        <button
           className="btn btn-primary"
-          style={{ backgroundColor: "green", borderColor: "green",marginLeft: "45%", marginTop: "35px" }}
+          onClick={handleBookNow}
+          style={{ backgroundColor: "green", borderColor: "green", marginLeft: "45%", marginTop: "35px" }}
         >
           Book Now
-        </a>
+        </button>
       </div>
     </>
   );

@@ -1,6 +1,6 @@
-// firebaseauth.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,8 +14,21 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Export the Firebase auth instance
-export const auth = getAuth(app);
+// Function to set a user as an admin
+export const setAdminRole = async (userId) => {
+  await setDoc(doc(db, "users", userId), {
+    role: "admin",
+  });
+};
 
+// Function to check if a user is an admin
+export const checkAdminRole = async (userId) => {
+  const userDoc = await getDoc(doc(db, "users", userId));
+  return userDoc.exists() && userDoc.data().role === "admin";
+};
+
+export { auth, db };
 export default app;
