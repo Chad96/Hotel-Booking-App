@@ -13,16 +13,13 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [rooms, setRooms] = useState([]);
+  const [reservations, setReservations] = useState([]); // To manage reservations
   const [editingRoomId, setEditingRoomId] = useState(null);
 
   useEffect(() => {
     const fetchRooms = async () => {
-      console.log("fetching rooms");
-      
       try {
         const querySnapshot = await getDocs(collection(db, "accommodations"));
-        console.log(querySnapshot.size);
-        
         const roomsData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -31,10 +28,25 @@ const AdminDashboard = () => {
       } catch (fetchError) {
         setError("Error fetching accommodations.");
         console.error(fetchError);
-        
       }
     };
+
+    const fetchReservations = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "reservations"));
+        const reservationsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setReservations(reservationsData);
+      } catch (fetchError) {
+        setError("Error fetching reservations.");
+        console.error(fetchError);
+      }
+    };
+
     fetchRooms();
+    fetchReservations(); // Fetch reservations on page load
   }, []);
 
   const handleFileChange = async (e) => {
@@ -116,6 +128,20 @@ const AdminDashboard = () => {
     setEditingRoomId(room.id);
   };
 
+  const handleApproveReservation = async (id) => {
+    // Update reservation status
+    const reservationRef = doc(db, "reservations", id);
+    await updateDoc(reservationRef, { status: "Approved" });
+    alert("Reservation approved.");
+  };
+
+  const handleCancelReservation = async (id) => {
+    // Update reservation status
+    const reservationRef = doc(db, "reservations", id);
+    await updateDoc(reservationRef, { status: "Cancelled" });
+    alert("Reservation cancelled.");
+  };
+
   const containerStyle = {
     display: "flex",
     justifyContent: "space-between",
@@ -135,7 +161,7 @@ const AdminDashboard = () => {
     flexDirection: "column",
   };
 
-  const roomListContainerStyle = {
+  const listContainerStyle = {
     flex: 1,
     backgroundColor: "#ffffff",
     borderRadius: "10px",
@@ -171,6 +197,11 @@ const AdminDashboard = () => {
     borderRadius: "5px",
     boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
     textAlign: "left",
+  };
+
+  const reservationCardStyle = {
+    ...roomCardStyle,
+    backgroundColor: "#f8f9fa",
   };
 
   const deleteButtonStyle = {
@@ -249,7 +280,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Accommodation List (Read, Edit, Delete) */}
-      <div style={roomListContainerStyle}>
+      <div style={listContainerStyle}>
         <h2>Manage Accommodations</h2>
         {rooms.length === 0 ? (
           <p>No accommodations available.</p>
@@ -259,9 +290,50 @@ const AdminDashboard = () => {
               <h3>{room.name}</h3>
               <p>{room.description}</p>
               <p>Price: ${room.price}</p>
+              <p>Availability: {room.availability ? "Available" : "Unavailable"}</p>
               <p>Location: {room.location}</p>
-              <button onClick={() => handleEdit(room)} style={buttonStyle}>Edit</button>
-              <button onClick={() => handleDelete(room.id)} style={deleteButtonStyle}>Delete</button>
+              <button
+                onClick={() => handleEdit(room)}
+                style={{ ...buttonStyle, marginBottom: "10px" }}
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(room.id)}
+                style={deleteButtonStyle}
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Reservations List (Read, Approve, Cancel) */}
+      <div style={listContainerStyle}>
+        <h2>Manage Reservations</h2>
+        {reservations.length === 0 ? (
+          <p>No reservations available.</p>
+        ) : (
+          reservations.map((reservation) => (
+            <div key={reservation.id} style={reservationCardStyle}>
+              <h3>{reservation.guestName}</h3>
+              <p>Room: {reservation.roomName}</p>
+              <p>Check-in: {reservation.checkIn}</p>
+              <p>Check-out: {reservation.checkOut}</p>
+              <p>Status: {reservation.status}</p>
+              <button
+                onClick={() => handleApproveReservation(reservation.id)}
+                style={{ ...buttonStyle, marginBottom: "10px" }}
+              >
+                Approve
+              </button>
+              <button
+                onClick={() => handleCancelReservation(reservation.id)}
+                style={deleteButtonStyle}
+              >
+                Cancel
+              </button>
             </div>
           ))
         )}
