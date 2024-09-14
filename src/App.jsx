@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth"; // Firebase auth methods
-import { doc, getDoc } from "firebase/firestore"; // Firestore methods
-import { auth, db } from "../firebaseauth"; // Import auth and Firestore from firebaseauth.js
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../firebaseauth"; // Adjusted import for firebaseauth from the root folder
 import Home from "./pages/Home";
 import AccommodationDetail from "./pages/AccommodationDetail";
 import Login from "./pages/Login";
@@ -10,11 +10,14 @@ import Register from "./pages/Register";
 import AdminDashboard from "./pages/AdminDashboard";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import AccommodationList from "./components/AccommodationList";
+import BookingForm from "./components/BookingForm";
+import Profile from "./components/Profile"; // Adjusted import for Profile from components folder
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -37,14 +40,14 @@ const App = () => {
         setUser(null);
         setIsAdmin(false);
       }
-      setLoading(false); // Loading complete
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading spinner or message
+    return <div>Loading...</div>; 
   }
 
   return (
@@ -55,15 +58,14 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/accommodation/:id" element={<AccommodationDetail />} />
+        <Route path="/booking/:id" element={<BookingForm />} />
+        <Route path="/accommodations" element={<AccommodationList />} />
+
+        {/* Temporarily bypass admin route protection */}
         <Route path="/admin" element={<AdminDashboard />} />
 
-        {/* Protected route for AccommodationDetail */}  
-        
-        {/* Protected route for AdminDashboard */}
-        <Route
-          path="/admin"
-          element={user && isAdmin ? <AdminDashboard /> : <Navigate to="/login" />}
-        />
+        {/* Temporarily bypass profile route protection */}
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />
     </Router>

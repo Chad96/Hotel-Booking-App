@@ -142,6 +142,13 @@ const Home = () => {
             >
               Register
             </a>
+            <a
+              className="nav-link"
+              href="/profile"
+              style={{ color: "#fff", margin: "0 10px" }}
+            >
+              Profile
+            </a>
           </div>
         </div>
       </nav>
