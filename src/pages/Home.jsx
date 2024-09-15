@@ -239,14 +239,15 @@ const Home = () => {
       </div>
       {/* Book Now Button */}
       <div className="book-now-container">
-        <a
-          href="#book"
-          className="btn btn-primary"
-          style={{ backgroundColor: "green", borderColor: "green",marginLeft: "45%", marginTop: "35px" }}
-        >
-          Book Now
-        </a>
-      </div>
+  <Link
+    to="/accommodations"
+    className="btn btn-primary"
+    style={{ backgroundColor: "green", borderColor: "green", marginLeft: "45%", marginTop: "35px" }}
+  >
+    Book Now
+  </Link>
+</div>
+
     </>
   );
 };
