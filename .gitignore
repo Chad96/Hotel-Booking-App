@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+hotel-booking-app-d2493-firebase-adminsdk-mhicn-89e2581220.json
 
 # Editor directories and files
 .vscode/*
