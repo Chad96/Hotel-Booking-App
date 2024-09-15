@@ -11,7 +11,7 @@ import hotel from "../assets/hotel.jpg";
 import garden2 from "../assets/hot.jpg";
 import garden3 from "../assets/hotel.jpg";
 
-// Assuming some color and font details from Figma
+
 const primaryColor = "#FF5733"; // Example color
 const fontFamily = "'Roboto', sans-serif"; // Example font
 

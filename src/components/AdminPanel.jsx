@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseauth'; // assuming firebaseauth.js contains your Firestore config
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import './AdminPanelStyles.css'; // Import the CSS file
 
 const AdminPanel = () => {
   const [accommodation, setAccommodation] = useState({
