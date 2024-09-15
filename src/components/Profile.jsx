@@ -20,6 +20,7 @@ const Profile = () => {
   const [bookings, setBookings] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAdminView, setIsAdminView] = useState(false); // State to switch views
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -84,6 +85,10 @@ const Profile = () => {
     signOut(auth).then(() => navigate("/login"));
   };
 
+  const toggleView = () => {
+    setIsAdminView(!isAdminView); // Toggle between admin and normal user view
+  };
+
   if (loading) return <div>Loading...</div>;
 
   return (
@@ -136,50 +141,66 @@ const Profile = () => {
         {isAdmin && (
           <div className="admin-section mt-4">
             <h3>Admin Section</h3>
-            <p>You have admin access. Click below to manage accommodations.</p>
+            <p>You have admin access. Use the button below to switch views.</p>
             <button
-              onClick={() => navigate("/admin")}
-              className="btn btn-primary"
+              onClick={toggleView}
+              className="btn btn-secondary"
             >
-              Go to Admin Dashboard
+              {isAdminView ? "Switch to User View" : "Switch to Admin View"}
             </button>
+
+            {isAdminView && (
+              <div className="admin-dashboard mt-4">
+                <h3>Admin Dashboard</h3>
+                <button
+                  onClick={() => navigate("/admin")}
+                  className="btn btn-primary"
+                >
+                  Go to Admin Dashboard
+                </button>
+              </div>
+            )}
           </div>
         )}
 
-        {/* User Bookings */}
-        <div className="mt-4">
-          <h3>Your Bookings</h3>
-          <ul>
-            {bookings.length > 0 ? (
-              bookings.map((booking) => (
-                <li key={booking.id}>
-                  {booking.accommodationName} - Check-in: {booking.checkInDate} - Check-out:{" "}
-                  {booking.checkOutDate}
-                </li>
-              ))
-            ) : (
-              <p>No bookings found.</p>
-            )}
-          </ul>
-        </div>
+        {!isAdminView && (
+          <>
+            {/* User Bookings */}
+            <div className="mt-4">
+              <h3>Your Bookings</h3>
+              <ul>
+                {bookings.length > 0 ? (
+                  bookings.map((booking) => (
+                    <li key={booking.id}>
+                      {booking.accommodationName} - Check-in: {booking.checkInDate} - Check-out:{" "}
+                      {booking.checkOutDate}
+                    </li>
+                  ))
+                ) : (
+                  <p>No bookings found.</p>
+                )}
+              </ul>
+            </div>
 
-        {/* User Favorites */}
-        <div className="mt-4">
-          <h3>Your Favorites</h3>
-          <ul>
-            {favorites.length > 0 ? (
-              favorites.map((fav) => <li key={fav.id}>{fav.name}</li>)
-            ) : (
-              <p>No favorites yet.</p>
-            )}
-          </ul>
-        </div>
+            {/* User Favorites */}
+            <div className="mt-4">
+              <h3>Your Favorites</h3>
+              <ul>
+                {favorites.length > 0 ? (
+                  favorites.map((fav) => <li key={fav.id}>{fav.name}</li>)
+                ) : (
+                  <p>No favorites yet.</p>
+                )}
+              </ul>
+            </div>
 
-        <div className="text-center mt-4">
-          <Link to="/bookings" className="btn btn-secondary">
-            View My Bookings
-          </Link>
-        </div>
+            <div className="text-center mt-4">
+              <Link to="/bookings" className="btn btn-secondary">
+                View My Bookings
+              </Link>
+            </div>
+          </>
+        )}
 
         <div className="text-center mt-4">
           <button onClick={handleSignOut} className="btn btn-danger">

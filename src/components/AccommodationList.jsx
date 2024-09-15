@@ -54,6 +54,12 @@ const AccommodationList = () => {
 
   return (
     <div>
+    <h1 style={{ fontSize: "48px", fontWeight: "bold", marginTop: "80px", marginLeft: "25%" }}>
+  Welcome to{" "}
+  <span style={{ color: "green", marginBottom: "5%" }}>Le paradis</span>{" "}
+  Beach Hotel
+</h1>
+
       {/* Search Inputs */}
       <div className="search-filters">
         <input
@@ -88,7 +94,9 @@ const AccommodationList = () => {
             <div className="accommodation-details">
               <h3>{accommodation.name}</h3>
               <p>{accommodation.address}</p>
-              <p className="accommodation-price">${accommodation.price} / night</p>
+              <p className="accommodation-price">
+                ${accommodation.price} / night
+              </p>
 
               {/* Map Placeholder */}
               <div id={`map-${accommodation.id}`} className="accommodation-map">
@@ -99,7 +107,10 @@ const AccommodationList = () => {
                 />
               </div>
 
-              <Link to={`/booking/${accommodation.id}`} className="book-now-button">
+              <Link
+                to={`/booking/${accommodation.id}`}
+                className="book-now-button"
+              >
                 Book Now
               </Link>
             </div>
