@@ -98,60 +98,48 @@ const AccommodationCard = ({ accommodation }) => {
 const Home = () => {
   return (
     <>
-      {/* Navbar */}
-      <nav
-        className="navbar navbar-expand-lg navbar-dark"
-        style={{
-          backgroundColor: "rgba(255, 255, 255, 0.1)", // Slightly transparent white
-          backdropFilter: "blur(10px)", // Glassy effect
-          position: "fixed",
-          width: "100%",
-          top: 0,
-          left: 0,
-          zIndex: 1000,
-        }}
-      >
-        <div className="container" style={{ justifyContent: "space-between" }}>
-          {/* Navbar brand with logo */}
-          <a className="navbar-brand" href="/">
-            <img
-              src={logo} // Use imported logo
-              alt="Hotel Logo"
-              style={{ height: "50px" }}
-            />
-          </a>
-          <div className="d-flex align-items-center">
-            <a
-              className="nav-link"
-              href="/"
-              style={{ color: "#fff", margin: "0 10px" }}
-            >
-              Home
-            </a>
-            <a
-              className="nav-link"
-              href="/login"
-              style={{ color: "#fff", margin: "0 10px" }}
-            >
-              Login
-            </a>
-            <a
-              className="nav-link"
-              href="/register"
-              style={{ color: "#fff", margin: "0 10px" }}
-            >
-              Register
-            </a>
-            <a
-              className="nav-link"
-              href="/profile"
-              style={{ color: "#fff", margin: "0 10px" }}
-            >
-              Profile
-            </a>
-          </div>
-        </div>
-      </nav>
+     {/* Navbar */}
+<nav
+  className="navbar navbar-expand-lg navbar-dark"
+  style={{
+    backgroundColor: "rgba(255, 255, 255, 0.1)", // Slightly transparent white
+    backdropFilter: "blur(10px)", // Glassy effect
+    position: "fixed",
+    width: "100%",
+    top: 0,
+    left: 0,
+    zIndex: 1000,
+  }}
+>
+  <div className="container" style={{ justifyContent: "space-between" }}>
+    {/* Navbar brand with logo */}
+    <a className="navbar-brand" href="/">
+      <img
+        src={logo} // Use imported logo
+        alt="Hotel Logo"
+        style={{ height: "50px" }}
+      />
+    </a>
+    <div className="d-flex align-items-center">
+      <Link className="nav-link" to="/" style={{ color: "#fff", margin: "0 10px" }}>
+        Home
+      </Link>
+      <Link className="nav-link" to="/accommodations" style={{ color: "#fff", margin: "0 10px" }}>
+        Accommodations
+      </Link>
+      <Link className="nav-link" to="/login" style={{ color: "#fff", margin: "0 10px" }}>
+        Login
+      </Link>
+      <Link className="nav-link" to="/register" style={{ color: "#fff", margin: "0 10px" }}>
+        Register
+      </Link>
+      <Link className="nav-link" to="/profile" style={{ color: "#fff", margin: "0 10px" }}>
+        Profile
+      </Link>
+    </div>
+  </div>
+</nav>
+
 
       {/* Hero Section */}
       <div className="hero-section" style={{ paddingTop: "60px" }}>
