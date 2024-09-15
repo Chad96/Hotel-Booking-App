@@ -13,6 +13,8 @@ import Footer from "./components/Footer";
 import AccommodationList from "./components/AccommodationList";
 import BookingForm from "./components/BookingForm";
 import Profile from "./components/Profile"; // Adjusted import for Profile from components folder
+// import Admin from "../admin"; // Assuming admin.jsx is in the root directory
+
 
 const App = () => {
   const [user, setUser] = useState(null);

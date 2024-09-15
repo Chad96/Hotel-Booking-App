@@ -121,8 +121,8 @@ const Home = () => {
       />
     </a>
     <div className="d-flex align-items-center">
-      <Link className="nav-link" to="/" style={{ color: "#fff", margin: "0 10px" }}>
-        Home
+    <Link className="nav-link" to="/admin" style={{ color: "#fff", margin: "0 10px" }}>
+        Admin
       </Link>
       <Link className="nav-link" to="/accommodations" style={{ color: "#fff", margin: "0 10px" }}>
         Accommodations

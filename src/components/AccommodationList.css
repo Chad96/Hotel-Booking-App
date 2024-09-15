@@ -86,4 +86,25 @@
   .search-filters button:hover {
     background-color: #218838;
   }
+  .favorite-button.favorited {
+    background-color: gold;
+  }
+  
+  .star-rating span {
+    font-size: 24px;
+  }
+  
+  .share-button {
+    margin-top: 10px;
+    background-color: lightblue;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .favorite-button {
+    margin-top: 10px;
+    background-color: lightcoral;
+    border: none;
+    cursor: pointer;
+  }
   

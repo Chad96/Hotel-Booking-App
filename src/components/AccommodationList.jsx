@@ -11,6 +11,7 @@ const AccommodationList = () => {
   const [searchLocation, setSearchLocation] = useState(""); // For location filter
   const [minPrice, setMinPrice] = useState(""); // For min price filter
   const [maxPrice, setMaxPrice] = useState(""); // For max price filter
+  const [favorites, setFavorites] = useState([]); // Manage favorite accommodations
 
   useEffect(() => {
     const fetchAccommodations = async () => {
@@ -31,7 +32,6 @@ const AccommodationList = () => {
   }, []);
 
   const handleSearch = () => {
-    // Filters based on search criteria (location, price range)
     return accommodations.filter((accommodation) => {
       const matchesLocation =
         searchLocation === "" ||
@@ -49,16 +49,46 @@ const AccommodationList = () => {
 
   const filteredAccommodations = handleSearch();
 
+  // Handle adding to favorites
+  const handleAddToFavorites = (accommodation) => {
+    if (favorites.includes(accommodation.id)) {
+      setFavorites(favorites.filter((favId) => favId !== accommodation.id));
+    } else {
+      setFavorites([...favorites, accommodation.id]);
+    }
+  };
+
+  // Handle star rating
+  const handleStarClick = (index, accommodationId) => {
+    // Here you would save the rating to Firebase (or some backend), for now, we'll just log it
+    console.log(`Accommodation ${accommodationId} rated ${index + 1} stars`);
+  };
+
+  const handleShare = (accommodation) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: accommodation.name,
+          text: `Check out this accommodation at ${accommodation.address}`,
+          url: window.location.href,
+        })
+        .then(() => console.log("Shared successfully!"))
+        .catch((error) => console.log("Error sharing:", error));
+    } else {
+      alert("Sharing is not supported on this browser.");
+    }
+  };
+
   if (loading) return <p>Loading accommodations...</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div>
-    <h1 style={{ fontSize: "48px", fontWeight: "bold", marginTop: "80px", marginLeft: "25%" }}>
-  Welcome to{" "}
-  <span style={{ color: "green", marginBottom: "5%" }}>Le paradis</span>{" "}
-  Beach Hotel
-</h1>
+      <h1 style={{ fontSize: "48px", fontWeight: "bold", marginTop: "80px", marginLeft: "25%" }}>
+        Welcome to{" "}
+        <span style={{ color: "green", marginBottom: "5%" }}>Le paradis</span>{" "}
+        Beach Hotel
+      </h1>
 
       {/* Search Inputs */}
       <div className="search-filters">
@@ -98,6 +128,22 @@ const AccommodationList = () => {
                 ${accommodation.price} / night
               </p>
 
+              {/* Star Rating Feature */}
+              <div className="star-rating">
+                {[...Array(5)].map((_, index) => (
+                  <span
+                    key={index}
+                    onClick={() => handleStarClick(index, accommodation.id)}
+                    style={{
+                      cursor: "pointer",
+                      color: index < 3 ? "orange" : "gray", // Customize logic as per ratings
+                    }}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+
               {/* Map Placeholder */}
               <div id={`map-${accommodation.id}`} className="accommodation-map">
                 <iframe
@@ -106,6 +152,23 @@ const AccommodationList = () => {
                   style={{ width: "100%", height: "150px" }}
                 />
               </div>
+
+              {/* Add to Favorites */}
+              <button
+                className={`favorite-button ${
+                  favorites.includes(accommodation.id) ? "favorited" : ""
+                }`}
+                onClick={() => handleAddToFavorites(accommodation)}
+              >
+                {favorites.includes(accommodation.id)
+                  ? "Remove from Favorites"
+                  : "Add to Favorites"}
+              </button>
+
+              {/* Share Button */}
+              <button className="share-button" onClick={() => handleShare(accommodation)}>
+                Share
+              </button>
 
               <Link
                 to={`/booking/${accommodation.id}`}
