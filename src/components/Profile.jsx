@@ -13,7 +13,6 @@ const Profile = () => {
   const [profileData, setProfileData] = useState({
     name: reduxUser.name || "",
     email: reduxUser.email || "",
-    // Add other fields as needed
   });
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -24,9 +23,14 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch user profile from Firestore
     const fetchUserProfile = async () => {
       try {
+        // Check if the user is an admin using custom claims
+        const idTokenResult = await auth.currentUser.getIdTokenResult();
+        if (idTokenResult.claims.admin) {
+          setIsAdmin(true);
+        }
+
         const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
         if (userDoc.exists()) {
           const userData = userDoc.data();
@@ -35,7 +39,6 @@ const Profile = () => {
             name: userData.name || "",
             email: userData.email || "",
           });
-          setIsAdmin(userData.role === "admin");
 
           // Fetch bookings
           const bookingsSnapshot = await getDocs(
@@ -76,7 +79,6 @@ const Profile = () => {
   };
 
   const handleSave = () => {
-    // Save the updated profile data, possibly by dispatching a Redux action or sending an API request
     console.log("Profile data saved:", profileData);
     setIsEditing(false);
   };
@@ -142,10 +144,7 @@ const Profile = () => {
           <div className="admin-section mt-4">
             <h3>Admin Section</h3>
             <p>You have admin access. Use the button below to switch views.</p>
-            <button
-              onClick={toggleView}
-              className="btn btn-secondary"
-            >
+            <button onClick={toggleView} className="btn btn-secondary">
               {isAdminView ? "Switch to User View" : "Switch to Admin View"}
             </button>
 
