@@ -60,7 +60,6 @@ const AccommodationList = () => {
 
   // Handle star rating
   const handleStarClick = (index, accommodationId) => {
-    // Here you would save the rating to Firebase (or some backend), for now, we'll just log it
     console.log(`Accommodation ${accommodationId} rated ${index + 1} stars`);
   };
 
@@ -84,7 +83,14 @@ const AccommodationList = () => {
 
   return (
     <div>
-      <h1 style={{ fontSize: "48px", fontWeight: "bold", marginTop: "80px", marginLeft: "25%" }}>
+      <h1
+        style={{
+          fontSize: "48px",
+          fontWeight: "bold",
+          marginTop: "80px",
+          marginLeft: "25%",
+        }}
+      >
         Welcome to{" "}
         <span style={{ color: "green", marginBottom: "5%" }}>Le paradis</span>{" "}
         Beach Hotel
@@ -116,11 +122,24 @@ const AccommodationList = () => {
       <div className="accommodation-list-container">
         {filteredAccommodations.map((accommodation) => (
           <div key={accommodation.id} className="accommodation-card">
-            <img
-              src={accommodation.imageUrl} // Image from Firebase Storage
-              alt={accommodation.name}
-              className="accommodation-image"
-            />
+            {/* Accommodation Image Gallery */}
+            <div className="accommodation-images">
+              {accommodation.images && accommodation.images.length > 0 ? (
+                <div className="image-gallery">
+                  {accommodation.images.map((imageUrl, index) => (
+                    <img
+                      key={index}
+                      src={imageUrl}
+                      alt={`Accommodation ${index}`}
+                      className="accommodation-image"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p>No images available</p>
+              )}
+            </div>
+
             <div className="accommodation-details">
               <h3>{accommodation.name}</h3>
               <p>{accommodation.address}</p>
@@ -166,7 +185,10 @@ const AccommodationList = () => {
               </button>
 
               {/* Share Button */}
-              <button className="share-button" onClick={() => handleShare(accommodation)}>
+              <button
+                className="share-button"
+                onClick={() => handleShare(accommodation)}
+              >
                 Share
               </button>
 

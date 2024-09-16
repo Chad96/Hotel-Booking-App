@@ -1,25 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../firebaseauth'; // assuming firebaseauth.js contains your Firestore config
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import './AdminPanelStyles.css'; // Import the CSS file
+import React, { useState, useEffect } from "react";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { db, storage } from "../firebaseauth"; // Firebase setup file
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import "./AdminPanelStyles.css"; // CSS file for Admin Panel styling
 
 const AdminPanel = () => {
   const [accommodation, setAccommodation] = useState({
-    name: '',
-    price: '',
-    availability: '',
+    name: "",
+    price: "",
+    availability: "",
     images: [],
   });
   const [accommodationsList, setAccommodationsList] = useState([]);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState([]); // For handling image files
 
-  const storage = getStorage(); // Initialize Firebase storage
-
-  // Fetch accommodations from Firestore
+  // Fetch accommodations from Firestore on component mount
   useEffect(() => {
     const fetchAccommodations = async () => {
-      const querySnapshot = await getDocs(collection(db, 'accommodations'));
+      const querySnapshot = await getDocs(collection(db, "accommodations"));
       const accommodations = [];
       querySnapshot.forEach((doc) => {
         accommodations.push({ ...doc.data(), id: doc.id });
@@ -39,45 +43,52 @@ const AdminPanel = () => {
     });
   };
 
-  // Handle image upload
+  // Handle image upload input change
   const handleImageChange = (e) => {
-    setImages([...e.target.files]);
+    const files = Array.from(e.target.files); // Get the selected files
+    const filePreviews = files.map((file) => {
+      const previewUrl = URL.createObjectURL(file); // Generate a URL for preview
+      return { file, previewUrl }; // Store both file and preview URL
+    });
+    setImages(filePreviews); // Update state with previews and files
   };
 
-  // Upload images to Firebase Storage and return their URLs
+  // Function to upload images to Firebase Storage and get their URLs
   const uploadImages = async () => {
     const imageUrls = [];
     for (let i = 0; i < images.length; i++) {
-      const imageRef = ref(storage, `images/${images[i].name}`);
-      await uploadBytes(imageRef, images[i]);
-      const url = await getDownloadURL(imageRef);
-      imageUrls.push(url);
+      const imageRef = ref(storage, `accommodations/${images[i].name}`); // Create a reference for each image
+      await uploadBytes(imageRef, images[i]); // Upload image
+      const url = await getDownloadURL(imageRef); // Get the download URL
+      imageUrls.push(url); // Store the image URL
     }
     return imageUrls;
   };
 
-  // Handle form submission
+  // Handle form submission to add a new accommodation
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Upload images first
+    // Upload images to Firebase Storage and get URLs
     const imageUrls = await uploadImages();
 
-    // Add accommodation details with image URLs to Firestore
-    await addDoc(collection(db, 'accommodations'), {
+    // Save accommodation data including image URLs to Firestore
+    await addDoc(collection(db, "accommodations"), {
       ...accommodation,
-      images: imageUrls,
+      images: imageUrls, // Store image URLs in Firestore
     });
 
-    // Reset form and refresh accommodations list
+    // Reset form inputs and images state
     setAccommodation({
-      name: '',
-      price: '',
-      availability: '',
+      name: "",
+      price: "",
+      availability: "",
       images: [],
     });
     setImages([]);
-    const querySnapshot = await getDocs(collection(db, 'accommodations'));
+
+    // Fetch updated accommodations list from Firestore
+    const querySnapshot = await getDocs(collection(db, "accommodations"));
     const accommodations = [];
     querySnapshot.forEach((doc) => {
       accommodations.push({ ...doc.data(), id: doc.id });
@@ -85,10 +96,10 @@ const AdminPanel = () => {
     setAccommodationsList(accommodations);
   };
 
-  // Handle delete accommodation
+  // Handle delete accommodation from Firestore
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, 'accommodations', id));
-    setAccommodationsList(accommodationsList.filter((acc) => acc.id !== id));
+    await deleteDoc(doc(db, "accommodations", id)); // Delete accommodation document
+    setAccommodationsList(accommodationsList.filter((acc) => acc.id !== id)); // Update list after deletion
   };
 
   return (
@@ -128,8 +139,28 @@ const AdminPanel = () => {
           />
         </div>
         <div>
-          <label>Upload Images</label>
-          <input type="file" multiple onChange={handleImageChange} required />
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Upload Images</label>
+              <input
+                type="file"
+                multiple
+                onChange={handleImageChange}
+                required
+              />
+            </div>
+
+            {/* Display selected image previews */}
+            <div className="image-preview-container">
+              {images.map((image, index) => (
+                <div key={index} className="image-preview">
+                  <img src={image.previewUrl} alt={`preview-${index}`} />
+                </div>
+              ))}
+            </div>
+
+            <button type="submit">Add Accommodation</button>
+          </form>
         </div>
         <button type="submit">Add Accommodation</button>
       </form>

@@ -1,5 +1,5 @@
 [{
-    "origin": ["http://localhost:5173/"],
+    "origin": ["*"],
     "methods": ["GET",  "PUT", "POST", "DELETE"],
     "maxAgeSeconds": 3600,
     "responseHeader": ["content-Type", "Authorization"]
