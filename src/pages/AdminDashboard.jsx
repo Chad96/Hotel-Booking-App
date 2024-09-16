@@ -149,6 +149,7 @@ const AdminDashboard = () => {
     padding: "20px",
     gap: "20px",
     backgroundColor: "#f0f0f0",
+    marginTop: "100px", // Add margin to push the content down
   };
 
   const formContainerStyle = {
